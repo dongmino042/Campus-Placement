@@ -34,13 +34,25 @@ import joblib
 try:
     from xgboost import XGBClassifier, XGBRegressor
     xgboost_available = True
-except (ImportError, ModuleNotFoundError):
+except ImportError:
     xgboost_available = False
 
 
+# Minimum samples required for regression training
+MIN_REGRESSION_SAMPLES = 5
+
+
 def load_data(path):
-    df = pd.read_csv(path)
-    return df
+    """Load CSV data with error handling."""
+    try:
+        df = pd.read_csv(path)
+        return df
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Data file not found: {path}. Please ensure the file exists.")
+    except pd.errors.EmptyDataError:
+        raise ValueError(f"The data file is empty: {path}")
+    except Exception as e:
+        raise ValueError(f"Error reading CSV file {path}: {str(e)}")
 
 
 def preprocess(df, for_regression=False):
@@ -168,8 +180,8 @@ def main(args):
 
     # Regression (salary) on placed only
     data_reg, numeric_cols_reg, cat_cols_reg = preprocess(df, for_regression=True)
-    if 'salary' not in data_reg.columns or data_reg.shape[0] < 5:
-        print("Not enough salary data to train regression model. Skipping regression.")
+    if 'salary' not in data_reg.columns or data_reg.shape[0] < MIN_REGRESSION_SAMPLES:
+        print(f"Not enough salary data to train regression model (need at least {MIN_REGRESSION_SAMPLES} samples). Skipping regression.")
         return
 
     X_reg, y_reg = prepare_X_y_regression(data_reg, numeric_cols_reg, cat_cols_reg)
