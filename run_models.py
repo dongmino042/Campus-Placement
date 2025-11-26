@@ -169,7 +169,7 @@ def main(args):
     models_clf = {'LogisticRegression': log, 'RandomForest': rf}
     # XGBoost if available
     if xgboost_available:
-        xgb = XGBClassifier(n_estimators=200, eval_metric='logloss', random_state=42)
+        xgb = XGBClassifier(n_estimators=200, eval_metric='logloss', verbosity=0, random_state=42)
         xgb.fit(X_train, y_train)
         models_clf['XGBoost'] = xgb
 
@@ -194,7 +194,7 @@ def main(args):
     models_reg = {'RandomForestRegressor': rf_reg}
 
     if xgboost_available:
-        xgb_reg = XGBRegressor(n_estimators=200, random_state=42)
+        xgb_reg = XGBRegressor(n_estimators=200, verbosity=0, random_state=42)
         xgb_reg.fit(Xr_train, yr_train)
         models_reg['XGBoostRegressor'] = xgb_reg
 
