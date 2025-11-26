@@ -24,7 +24,6 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
-from sklearn.impute import SimpleImputer
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, confusion_matrix, mean_absolute_error, mean_squared_error, r2_score
@@ -70,19 +69,23 @@ def preprocess(df, for_regression=False):
     return data, numeric_cols, cat_cols
 
 
-def prepare_X_y_classification(df, numeric_cols, cat_cols):
-    y = df['status_bin'].astype(int)
+def create_feature_matrix(df, numeric_cols, cat_cols):
+    """Helper function to create feature matrix with numeric and categorical features."""
     X_num = df[numeric_cols]
     X_cat = pd.get_dummies(df[cat_cols].astype(str), drop_first=True) if cat_cols else pd.DataFrame(index=df.index)
     X = pd.concat([X_num.reset_index(drop=True), X_cat.reset_index(drop=True)], axis=1)
+    return X
+
+
+def prepare_X_y_classification(df, numeric_cols, cat_cols):
+    y = df['status_bin'].astype(int)
+    X = create_feature_matrix(df, numeric_cols, cat_cols)
     return X, y
 
 
 def prepare_X_y_regression(df, numeric_cols, cat_cols):
     y = df['salary'].astype(float)
-    X_num = df[numeric_cols]
-    X_cat = pd.get_dummies(df[cat_cols].astype(str), drop_first=True) if cat_cols else pd.DataFrame(index=df.index)
-    X = pd.concat([X_num.reset_index(drop=True), X_cat.reset_index(drop=True)], axis=1)
+    X = create_feature_matrix(df, numeric_cols, cat_cols)
     return X, y
 
 
