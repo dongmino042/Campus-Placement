@@ -46,9 +46,11 @@ def view_results(results_dir='outputs'):
         print(f"with open('{json_file}', 'r') as f:")
         print(f"    results = json.load(f)")
         print(f"")
-        print(f"best_clf_model = results['best_classification_model']")
-        print(f"best_reg_model = results['best_regression_model']")
-        print(f"accuracy = results['classification_results'][best_clf_model]['accuracy']")
+        print(f"# Access best models (check for None first)")
+        print(f"best_clf_model = results.get('best_classification_model')")
+        print(f"if best_clf_model:")
+        print(f"    accuracy = results['classification_results'][best_clf_model]['accuracy']")
+        print(f"    print(f'Best classifier: {{best_clf_model}} ({{accuracy:.2%}})')")
         print(f"```")
     
     # List all output files
