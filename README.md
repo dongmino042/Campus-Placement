@@ -1,224 +1,207 @@
 # Campus Placement Prediction
 
-A reproducible machine learning project for predicting campus placement outcomes using the "Factors Affecting Campus Placement" dataset from Kaggle.
+Dự án Machine Learning dự đoán kết quả tuyển dụng sinh viên dựa trên dataset "Factors Affecting Campus Placement" từ Kaggle.
 
-## 📊 Project Overview
+## 📊 Tổng quan dự án
 
-This project implements a complete machine learning pipeline to predict whether a student will be placed in campus recruitment based on various academic and personal factors. The project follows best practices for reproducibility, including:
+Dự án này xây dựng pipeline machine learning hoàn chỉnh để dự đoán sinh viên có được tuyển dụng (`Placed`) hay không (`Not Placed`) trong các buổi tuyển dụng tại trường, dựa trên các yếu tố học tập và cá nhân.
 
-- **Fixed random seed** for reproducible results
-- **Comprehensive data preprocessing** pipeline
-- **Multiple ML models** with hyperparameter tuning
-- **Cross-validation** for robust model selection
-- **Detailed evaluation** with multiple metrics
-- **Well-structured codebase** with modular design
+### Tính năng chính:
+- ✅ Pipeline tiền xử lý dữ liệu đầy đủ
+- ✅ Nhiều mô hình ML với hyperparameter tuning
+- ✅ Cross-validation để đánh giá robust
+- ✅ Đánh giá chi tiết với nhiều metrics
+- ✅ Visualization kết quả
+- ✅ Feature importance analysis
+- ✅ Lưu/tải mô hình
+- ✅ Code structure rõ ràng, modular
+- ✅ Notebook có documentation đầy đủ
+- ✅ Kết quả reproducible với fixed random seed
 
-## 🎯 Problem Statement
-
-Predict whether a student will be placed (`Placed`) or not placed (`Not Placed`) during campus recruitment based on features such as:
-- Academic performance (SSC, HSC, Degree, MBA percentages)
-- Board of education
-- Specialization
-- Work experience
-- Employability test scores
-
-## 📁 Project Structure
+## 📁 Cấu trúc dự án
 
 ```
 Campus-Placement/
-├── data/                           # Data directory
-│   ├── README.md                   # Data download instructions
-│   └── .gitignore                  # Ignore CSV files
-├── notebooks/                      # Jupyter notebooks
-│   ├── 01_EDA.ipynb               # Exploratory Data Analysis
-│   └── 02_Modeling.ipynb          # Model training and evaluation
-├── src/                            # Source code modules
-│   ├── __init__.py                # Package initialization
-│   ├── data.py                    # Data loading utilities
-│   ├── preprocess.py              # Data preprocessing
-│   ├── train.py                   # Model training with CV and tuning
-│   └── evaluate.py                # Model evaluation
-├── models/                         # Saved models directory
-│   ├── .gitignore                 # Ignore model files
-│   └── best_model.pkl             # Best trained model (generated)
-├── requirements.txt                # Python dependencies
-├── README.md                       # This file
-├── LICENSE                         # License file
-└── .gitignore                      # Git ignore file
+├── data/                                    # Thư mục dữ liệu
+│   ├── README.md                            # Hướng dẫn tải dataset
+│   └── Placement_Data_Full_Class.csv        # Dataset (cần tải về)
+├── notebooks/                               # Jupyter notebooks
+│   ├── 01_EDA.ipynb                        # Phân tích dữ liệu khám phá
+│   └── 02_Modeling.ipynb                   # Training và đánh giá mô hình
+├── src/                                     # Source code modules
+│   ├── __init__.py                         # Package initialization
+│   ├── data.py                             # Utilities tải dữ liệu
+│   ├── preprocess.py                       # Tiền xử lý dữ liệu
+│   ├── train.py                            # Training với CV và tuning
+│   └── evaluate.py                         # Đánh giá mô hình
+├── models/                                  # Thư mục lưu models
+├── outputs/                                 # Thư mục lưu kết quả
+├── run_models.py                           # Script chạy models và xuất plots
+├── Campus_Placement_EDA_and_Models.ipynb   # Notebook tổng hợp EDA và Models
+├── requirements.txt                        # Python dependencies
+├── README.md                               # File này
+├── LICENSE                                 # License file
+└── .gitignore                              # Git ignore file
 ```
 
-## 🚀 Getting Started
+## 🚀 Hướng dẫn sử dụng
 
-### Prerequisites
+### Yêu cầu
 
-- Python 3.8 or higher
+- Python 3.8 trở lên
 - pip package manager
 
-### Installation
+### Cài đặt
 
-1. Clone the repository:
+1. Clone repository:
 ```bash
 git clone https://github.com/dongmino042/Campus-Placement.git
 cd Campus-Placement
 ```
 
-2. Create a virtual environment (recommended):
+2. Tạo virtual environment (khuyến nghị):
 ```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate  # Trên Windows: venv\Scripts\activate
 ```
 
-3. Install required packages:
+3. Cài đặt các packages cần thiết:
 ```bash
 pip install -r requirements.txt
 ```
 
-### Download Dataset
+### Tải Dataset
 
-Follow the instructions in `data/README.md` to download the dataset. You can either:
+**Lưu ý**: Dataset không được bao gồm trong repository. Bạn cần tải về từ Kaggle.
 
-**Option 1: Manual Download**
-- Visit [Kaggle dataset page](https://www.kaggle.com/datasets/benroshan/factors-affecting-campus-placement)
-- Download and extract the ZIP file
-- Place `Placement_Data_Full_Class.csv` in the `data/` directory
+**Cách 1: Tải thủ công**
+- Truy cập [trang dataset trên Kaggle](https://www.kaggle.com/datasets/benroshan/factors-affecting-campus-placement)
+- Tải và giải nén file ZIP
+- Đặt file `Placement_Data_Full_Class.csv` vào thư mục `data/`
 
-**Option 2: Using Kaggle API**
+**Cách 2: Sử dụng Kaggle API**
 ```bash
 pip install kaggle
-# Set up Kaggle credentials (see data/README.md)
+# Thiết lập Kaggle credentials (xem data/README.md)
 kaggle datasets download -d benroshan/factors-affecting-campus-placement
 unzip factors-affecting-campus-placement.zip -d data/
 ```
 
-## 📊 Usage
+## 📊 Cách chạy
 
-### Option 1: Using Jupyter Notebooks (Recommended for exploration)
+### Cách 1: Sử dụng script Python (Nhanh chóng)
 
-1. **Exploratory Data Analysis:**
+Chạy script `run_models.py` để train models và tạo visualizations:
+
 ```bash
-jupyter notebook notebooks/01_EDA.ipynb
+python run_models.py --data data/Placement_Data_Full_Class.csv --outdir outputs
 ```
-This notebook provides comprehensive data analysis, visualizations, and insights.
 
-2. **Model Training and Evaluation:**
+Script này sẽ:
+- Tiền xử lý dữ liệu
+- Train các mô hình classification (dự đoán Placed/Not Placed)
+- Train các mô hình regression (dự đoán mức lương cho sinh viên được tuyển)
+- Lưu models và plots vào thư mục `outputs/`
+
+### Cách 2: Sử dụng Jupyter Notebook (Khuyến nghị để khám phá)
+
+1. **Notebook tổng hợp (EDA + Models):**
 ```bash
+jupyter notebook Campus_Placement_EDA_and_Models.ipynb
+```
+Notebook này bao gồm:
+- Exploratory Data Analysis (EDA) đầy đủ
+- Training và đánh giá classification models
+- Training và đánh giá regression models
+- Visualizations và insights
+
+2. **Notebooks riêng lẻ (trong thư mục notebooks/):**
+```bash
+# Phân tích dữ liệu
+jupyter notebook notebooks/01_EDA.ipynb
+
+# Training và đánh giá mô hình
 jupyter notebook notebooks/02_Modeling.ipynb
 ```
-This notebook trains multiple models, performs hyperparameter tuning, and evaluates performance.
 
-### Option 2: Using Python Scripts
+### Cách 3: Sử dụng Python modules (trong src/)
 
-1. **Load and explore data:**
-```bash
-cd src
-python data.py
-```
-
-2. **Preprocess data:**
-```bash
-python preprocess.py
-```
-
-3. **Train models:**
 ```python
 from data import load_data
 from preprocess import prepare_train_test_split
 from train import train_all_models, select_best_model, save_model
+from evaluate import evaluate_model, print_evaluation_metrics
 
-# Load and preprocess
+# Load và preprocess
 df = load_data()
 X_train, X_test, y_train, y_test, preprocessor = prepare_train_test_split(df)
 
-# Train models with CV and hyperparameter tuning
+# Train models với CV và hyperparameter tuning
 models = train_all_models(X_train, y_train, cv=5)
 
-# Select and save best model
+# Chọn và lưu best model
 best_model_name, best_model, best_score = select_best_model(models)
 save_model(best_model, 'best_model.pkl')
-```
 
-4. **Evaluate models:**
-```python
-from evaluate import evaluate_model, print_evaluation_metrics
-
+# Đánh giá
 metrics = evaluate_model(best_model, X_test, y_test, best_model_name)
 print_evaluation_metrics(metrics)
 ```
 
-## 🤖 Models Implemented
+## 🤖 Các mô hình được implement
 
-The project implements and compares three machine learning models:
+Dự án implement và so sánh các mô hình machine learning:
 
 1. **Logistic Regression**
    - Hyperparameters: C, penalty, solver
-   - Fast training, interpretable results
+   - Training nhanh, kết quả dễ interpret
 
 2. **Random Forest**
    - Hyperparameters: n_estimators, max_depth, min_samples_split, min_samples_leaf, max_features
-   - Robust to overfitting, handles non-linear relationships
+   - Robust với overfitting, xử lý tốt các mối quan hệ phi tuyến
 
-3. **XGBoost**
+3. **XGBoost** (nếu có cài đặt)
    - Hyperparameters: n_estimators, max_depth, learning_rate, subsample, colsample_bytree, gamma
-   - State-of-the-art gradient boosting, excellent performance
+   - State-of-the-art gradient boosting, performance xuất sắc
 
-All models are trained with:
-- **5-fold cross-validation** for robust evaluation
-- **Grid search** for hyperparameter tuning
-- **ROC AUC** as the primary optimization metric
+Tất cả models được train với:
+- **5-fold cross-validation** để đánh giá robust
+- **Grid search** để hyperparameter tuning
+- **ROC AUC** là metric optimization chính
 
-## 📈 Evaluation Metrics
+## 📈 Metrics đánh giá
 
-Models are evaluated using comprehensive metrics:
+Models được đánh giá bằng các metrics:
 
-- **Accuracy**: Overall correctness
+- **Accuracy**: Độ chính xác tổng thể
 - **Precision**: Positive predictive value
 - **Recall**: True positive rate (sensitivity)
-- **F1 Score**: Harmonic mean of precision and recall
+- **F1 Score**: Trung bình điều hòa của precision và recall
 - **ROC AUC**: Area under the ROC curve
 
-Additional visualizations:
+Visualizations bổ sung:
 - Confusion matrix
 - ROC curve
-- Feature importance (for tree-based models)
+- Feature importance (cho tree-based models)
 - Model comparison charts
 
-## 🔄 Reproducibility
+## 📊 Thông tin Dataset
 
-The project ensures reproducibility through:
-
-- **Fixed random seed** (`RANDOM_SEED = 42`) used throughout the pipeline
-- **Deterministic preprocessing** with consistent train-test splits
-- **Version-pinned dependencies** in `requirements.txt`
-- **Stratified sampling** to maintain class distribution
-
-## 📝 Key Features
-
-- ✅ Comprehensive data preprocessing pipeline
-- ✅ Multiple ML models with hyperparameter tuning
-- ✅ Cross-validation for robust model selection
-- ✅ Detailed evaluation with multiple metrics
-- ✅ Visualization of results
-- ✅ Feature importance analysis
-- ✅ Model persistence (save/load)
-- ✅ Clean, modular code structure
-- ✅ Well-documented notebooks
-- ✅ Reproducible results with fixed random seed
-
-## 📊 Dataset Information
-
-**Source**: [Kaggle - Factors Affecting Campus Placement](https://www.kaggle.com/datasets/benroshan/factors-affecting-campus-placement)
+**Nguồn**: [Kaggle - Factors Affecting Campus Placement](https://www.kaggle.com/datasets/benroshan/factors-affecting-campus-placement)
 
 **Features**:
-- Academic performance metrics (SSC, HSC, Degree, MBA percentages)
+- Điểm số học tập (SSC, HSC, Degree, MBA percentages)
 - Board of education
-- Degree type and specialization
-- Work experience
-- Employability test scores
-- Gender
+- Loại degree và specialization
+- Kinh nghiệm làm việc
+- Điểm employability test
+- Giới tính
 
-**Target**: Placement Status (Placed/Not Placed)
+**Target**: 
+- Classification: Placement Status (Placed/Not Placed)
+- Regression: Salary (cho sinh viên được tuyển)
 
-## 🛠️ Technologies Used
+## 🛠️ Công nghệ sử dụng
 
 - **Python 3.8+**
 - **Data Processing**: NumPy, Pandas
@@ -229,21 +212,21 @@ The project ensures reproducibility through:
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Dự án này được cấp phép theo MIT License - xem file [LICENSE](LICENSE) để biết chi tiết.
 
-## 👨‍💻 Author
+## 👨‍💻 Tác giả
 
 **dongmino042**
 
 ## 🙏 Acknowledgments
 
-- Dataset provided by [Ben Roshan](https://www.kaggle.com/benroshan) on Kaggle
-- Inspired by real-world campus placement challenges
+- Dataset được cung cấp bởi [Ben Roshan](https://www.kaggle.com/benroshan) trên Kaggle
+- Lấy cảm hứng từ các thách thức tuyển dụng thực tế
 
-## 📞 Contact
+## 📞 Liên hệ
 
-For questions or feedback, please open an issue on GitHub.
+Để đặt câu hỏi hoặc feedback, vui lòng mở issue trên GitHub.
 
 ---
 
-**Note**: This project is for educational purposes and demonstrates best practices in machine learning project structure, reproducibility, and model evaluation.
+**Lưu ý**: Dataset không được bao gồm trong repository này. Vui lòng tải về từ Kaggle theo hướng dẫn ở trên. Dự án này dành cho mục đích giáo dục.
