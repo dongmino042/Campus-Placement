@@ -35,7 +35,7 @@ import joblib
 try:
     from xgboost import XGBClassifier, XGBRegressor
     xgboost_available = True
-except Exception:
+except (ImportError, ModuleNotFoundError):
     xgboost_available = False
 
 
@@ -154,7 +154,7 @@ def main(args):
     models_clf = {'LogisticRegression': log, 'RandomForest': rf}
     # XGBoost if available
     if xgboost_available:
-        xgb = XGBClassifier(n_estimators=200, use_label_encoder=False, eval_metric='logloss', random_state=42)
+        xgb = XGBClassifier(n_estimators=200, eval_metric='logloss', random_state=42)
         xgb.fit(X_train, y_train)
         models_clf['XGBoost'] = xgb
 
