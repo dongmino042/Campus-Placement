@@ -160,7 +160,6 @@ def train_xgboost(X_train, y_train, cv=5, random_seed=RANDOM_SEED):
     # Initialize model
     xgb = XGBClassifier(
         random_state=random_seed,
-        use_label_encoder=False,
         eval_metric='logloss'
     )
     
