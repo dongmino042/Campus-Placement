@@ -36,7 +36,12 @@ Campus-Placement/
 │   └── evaluate.py                         # Đánh giá mô hình
 ├── models/                                  # Thư mục lưu models
 ├── outputs/                                 # Thư mục lưu kết quả
-├── run_models.py                           # Script chạy models và xuất plots
+│   ├── results_summary.txt                 # Báo cáo tổng hợp kết quả
+│   ├── results.json                        # Kết quả dạng JSON
+│   ├── results_dashboard.png               # Dashboard trực quan
+│   └── ...                                 # Models và plots
+├── run_models.py                           # Script chạy models và xuất kết quả
+├── view_results.py                         # Script xem kết quả
 ├── Campus_Placement_EDA_and_Models.ipynb   # Notebook tổng hợp EDA và Models
 ├── requirements.txt                        # Python dependencies
 ├── README.md                               # File này
@@ -102,6 +107,39 @@ Script này sẽ:
 - Train các mô hình classification (dự đoán Placed/Not Placed)
 - Train các mô hình regression (dự đoán mức lương cho sinh viên được tuyển)
 - Lưu models và plots vào thư mục `outputs/`
+- **Tạo báo cáo kết quả chi tiết** (summary, JSON, dashboard)
+
+#### 📊 Kết quả đầu ra (Outputs)
+
+Script tạo ra các file sau trong thư mục `outputs/`:
+
+**Báo cáo và Kết quả:**
+- `results_summary.txt` - Báo cáo tổng hợp chi tiết với metrics của tất cả models
+- `results.json` - Kết quả dạng JSON cho lập trình viên
+- `results_dashboard.png` - Dashboard trực quan tổng hợp tất cả kết quả
+
+**Visualizations:**
+- `confusion_*.png` - Confusion matrices cho các classification models
+- `pred_vs_actual_*.png` - Scatter plots cho các regression models
+- `hist_salary.png` - Histogram phân bố lương
+
+**Models:**
+- `model_clf_*.joblib` - Các classification models đã train
+- `model_reg_*.joblib` - Các regression models đã train
+
+#### 🔍 Xem kết quả (View Results)
+
+Để xem tóm tắt kết quả nhanh chóng:
+
+```bash
+python view_results.py
+```
+
+Script này sẽ hiển thị:
+- 📄 Báo cáo tổng hợp (summary)
+- 📋 Hướng dẫn sử dụng kết quả JSON
+- 📁 Danh sách tất cả output files
+
 
 ### Cách 2: Sử dụng Jupyter Notebook (Khuyến nghị để khám phá)
 
