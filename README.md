@@ -223,7 +223,7 @@ Visualizations bổ sung:
 - Feature importance (cho tree-based models)
 - Model comparison charts
 
-## 📊 Báo cáo Kết quả
+## 📈 Báo cáo Kết quả
 
 ### Thông tin Dataset
 
