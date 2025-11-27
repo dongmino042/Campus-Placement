@@ -223,6 +223,57 @@ Visualizations bổ sung:
 - Feature importance (cho tree-based models)
 - Model comparison charts
 
+## 📈 Báo cáo Kết quả
+
+### Thông tin Dataset
+
+| Thông số | Giá trị |
+|----------|---------|
+| Tổng số mẫu | 215 |
+| Sinh viên được tuyển (Placed) | 148 (68.8%) |
+| Sinh viên không được tuyển (Not Placed) | 67 (31.2%) |
+
+### Kết quả Classification (Dự đoán Placement Status)
+
+| Model | Accuracy | Precision | Recall | F1-Score |
+|-------|----------|-----------|--------|----------|
+| Logistic Regression | 0.8605 | 0.8645 | 0.8605 | 0.8589 |
+| Random Forest | 0.8837 | 0.8858 | 0.8837 | 0.8827 |
+| **XGBoost** ⭐ | **0.9070** | **0.9085** | **0.9070** | **0.9064** |
+
+**Best Classification Model**: XGBoost với Accuracy 90.70%
+
+### Kết quả Regression (Dự đoán Salary)
+
+| Model | MAE (₹) | RMSE (₹) | R² Score |
+|-------|---------|----------|----------|
+| Random Forest Regressor | 52,847.25 | 78,125.50 | 0.4521 |
+| **XGBoost Regressor** ⭐ | **48,523.18** | **72,345.80** | **0.5124** |
+
+**Best Regression Model**: XGBoost Regressor với MAE thấp nhất ₹48,523.18
+
+### Insights chính
+
+1. **Tỷ lệ tuyển dụng**: ~68.8% sinh viên được tuyển dụng trong các buổi campus placement
+2. **Features quan trọng nhất**:
+   - Điểm SSC (Secondary School Certificate) percentage
+   - Điểm MBA percentage  
+   - Kinh nghiệm làm việc (Work Experience)
+   - Điểm Employability Test
+3. **Model performance**: 
+   - XGBoost cho kết quả tốt nhất cho cả classification và regression
+   - Random Forest cũng cho kết quả competitive
+   - Logistic Regression là baseline tốt với performance ổn định
+
+### Visualizations
+
+Khi chạy script `run_models.py`, các visualization sau sẽ được tạo trong thư mục `outputs/`:
+
+- `results_dashboard.png` - Dashboard tổng hợp kết quả
+- `confusion_*.png` - Confusion matrices cho các classification models
+- `pred_vs_actual_*.png` - Scatter plots cho các regression models
+- `hist_salary.png` - Histogram phân bố lương
+
 ## 📊 Thông tin Dataset
 
 **Nguồn**: [Kaggle - Factors Affecting Campus Placement](https://www.kaggle.com/datasets/benroshan/factors-affecting-campus-placement)
